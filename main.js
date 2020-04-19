@@ -242,8 +242,8 @@ log.info("-----------------results:"+result);
       
       if(results && results.body)
       {
-        let bodyObj = JSON.parse(results.body);
-        let resultObj = bodyObj.result[0];          
+        let bodyObj = JSON.parse(results.body);       
+        let resultObj = bodyObj.result;         
         Object.keys(resultObj).forEach(function(key){
             if(key == "number") {
                 resultObj.change_ticket_number = resultObj.number;
@@ -254,7 +254,7 @@ log.info("-----------------results:"+result);
             }
             else if (key != "active" && key != "priority" && 
                         key != "description" && key != "work_start" &&
-                        key != "work_end" && item.hasOwnProperty(key)) {
+                        key != "work_end" && resultObj.hasOwnProperty(key)) {
                             delete resultObj[key];
             }
         });
