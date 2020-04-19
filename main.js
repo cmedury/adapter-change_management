@@ -210,7 +210,7 @@ log.info("-----------------results:"+result);
                 }
                 else if (key != "active" && key != "priority" && 
                             key != "description" && key != "work_start" &&
-                            key != "work_end") {                                
+                            key != "work_end" && item.hasOwnProperty(key)) {                                
                                 delete item[key];                                
                 }
               });              
@@ -254,7 +254,7 @@ log.info("-----------------results:"+result);
             }
             else if (key != "active" && key != "priority" && 
                         key != "description" && key != "work_start" &&
-                        key != "work_end") {
+                        key != "work_end" && item.hasOwnProperty(key)) {
                             delete resultObj[key];
             }
         });
