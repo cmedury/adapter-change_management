@@ -193,33 +193,7 @@ log.info("-----------------results:"+result);
      * get() takes a callback function.
      */
 
-  this.connector.get((results, error) => {
-      
-      if(results && results.body)
-      {
-          let bodyObj = JSON.parse(results.body);
-          let resultArr = bodyObj.result;
-          resultArr.forEach(function(item){
-              Object.keys(item).forEach(function(key){
-                if(key == "number") {                    
-                  item.change_ticket_number = item.number;
-                  delete item.number;                  
-                } else if(key == "sys_id") {
-                    item.change_ticket_key = item.sys_id;
-                    delete item.sys_id;
-                }
-                else if (key != "active" && key != "priority" && 
-                            key != "description" && key != "work_start" &&
-                            key != "work_end") {                                
-                                delete item[key];                                
-                }
-              });              
-          });
-          log.info("--------------------------------- GET-Response:"+JSON.stringify(resultArr));
-          return callback(resultArr, null);
-      }
-      return callback(null,error); 
-  });
+  this.connector.get(callback);
   }
 
   /**
@@ -238,31 +212,7 @@ log.info("-----------------results:"+result);
      * Note how the object was instantiated in the constructor().
      * post() takes a callback function.
      */
-     this.connector.post((results, error) => {
-      
-      if(results && results.body)
-      {
-        let bodyObj = JSON.parse(results.body);
-        let resultObj = bodyObj.result[0];          
-        Object.keys(resultObj).forEach(function(key){
-            if(key == "number") {
-                resultObj.change_ticket_number = resultObj.number;
-                delete resultObj.number;
-            } else if(key == "sys_id") {
-                resultObj.change_ticket_key = resultObj.sys_id;
-                delete resultObj.sys_id;
-            }
-            else if (key != "active" && key != "priority" && 
-                        key != "description" && key != "work_start" &&
-                        key != "work_end") {
-                            delete resultObj[key];
-            }
-        });
-        log.info("--------------------------------- POST-Response:"+JSON.stringify(resultObj));
-        return callback(resultObj, null);
-      }
-      return callback(null,error); 
-  });
+     this.connector.post(callback);
   }
 }
 
